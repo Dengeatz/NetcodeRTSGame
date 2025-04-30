@@ -25,6 +25,7 @@ namespace RTS
         [Rpc(SendTo.Server)] 
         public void ChangeNameRpc()
         {
+            this.transform.localScale = Vector3.one;
             _name.Value = PlayerPrefs.GetString("Name");
         }
 

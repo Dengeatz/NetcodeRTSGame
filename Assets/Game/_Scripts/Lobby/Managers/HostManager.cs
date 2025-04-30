@@ -81,12 +81,11 @@ namespace RTS
             if (data.EventType == ConnectionEvent.PeerDisconnected && !manager.IsHost)
                 ClientDisconnected(data.ClientId);
 
-            //Debug.Log($"{manager.IsHost}, {data.EventType}");
         }
 
         private void ClientConnected(ulong obj)
         {
-            NetworkManager.Singleton.ConnectedClients[obj].PlayerObject.transform.parent = clientListTransform;
+            NetworkManager.Singleton.ConnectedClients[obj].PlayerObject.transform.SetParent(clientListTransform, false);
             playerList.Add(obj);
         }
 
