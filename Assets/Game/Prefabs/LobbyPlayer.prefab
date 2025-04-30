@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 825866404715258256}
   - component: {fileID: 8789510508792726293}
   - component: {fileID: 1288691048823541219}
+  - component: {fileID: -6838900193458882010}
   - component: {fileID: 5566207874279407501}
   m_Layer: 5
   m_Name: LobbyPlayer
@@ -80,6 +81,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &-6838900193458882010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143413909900238664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 255387832
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &5566207874279407501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b277c263862f97448a1f3e61d8ce9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   PlayerName: {fileID: 7478384587557972173}
 --- !u!1 &2444507510032381762
 GameObject:

@@ -13,7 +13,7 @@ namespace RTS
         [SerializeField] private Transform clientListTransform;
         [SerializeField] private GameObject clientPrefab;
 
-        private Dictionary<ulong, LobbyPlayer> playerList = new Dictionary<ulong, LobbyPlayer>();
+        private List<ulong> playerList = new List<ulong>();
 
         public Action FromHostClientExit;
 
@@ -58,10 +58,6 @@ namespace RTS
         {
             NetworkManager.Singleton.Shutdown();
 
-            foreach (var player in playerList.Values)
-            {
-                Destroy(player.gameObject);
-            }
             playerList.Clear();
         }
 
@@ -71,7 +67,7 @@ namespace RTS
                 ClientConnected(data.ClientId);
             
             if ((data.EventType == ConnectionEvent.ClientConnected || data.EventType == ConnectionEvent.PeerConnected) && !manager.IsHost)
-                ClientConnectedForClient();
+                ClientConnectedForClient(data.ClientId);
 
             if (data.EventType == ConnectionEvent.ClientDisconnected && manager.IsHost)
                 if (NetworkManager.Singleton.CurrentSessionOwner == manager.LocalClientId)
@@ -90,39 +86,31 @@ namespace RTS
 
         private void ClientConnected(ulong obj)
         {
-            playerList.Add(obj, GameObject.Instantiate(clientPrefab, clientListTransform).GetComponent<LobbyPlayer>());
-            var gObj = playerList[obj];
-            gObj.PlayerName.text = obj.ToString();
+            NetworkManager.Singleton.ConnectedClients[obj].PlayerObject.transform.parent = clientListTransform;
+            playerList.Add(obj);
         }
 
         private void ClientDisconnected(ulong obj)
         {
-            var gObj = playerList[obj];
             playerList.Remove(obj);
-            Destroy(gObj.gameObject);
         }
 
 
-        private void ClientConnectedForClient()
+        private void ClientConnectedForClient(ulong id)
         {
             foreach(var client in NetworkManager.Singleton.ConnectedClientsIds)
             {
-                if (playerList.ContainsKey(client)) continue;
+                if (playerList.Contains(client)) continue;
 
-                playerList.Add(client, GameObject.Instantiate(clientPrefab, clientListTransform).GetComponent<LobbyPlayer>());
-                var gObj = playerList[client];
-                gObj.PlayerName.text = client.ToString();
+                playerList.Add(client);
             }
         }
 
         private void ClientDisconnectedForClient()
         {
-            foreach (var player in playerList.Values)
-            {
-                Destroy(player.gameObject);
-            }
             playerList.Clear();
             NetworkManager.Singleton.Shutdown();
+            NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.Despawn();
             FromHostClientExit?.Invoke();
         }
     }
