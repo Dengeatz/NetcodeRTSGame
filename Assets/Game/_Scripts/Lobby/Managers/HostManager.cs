@@ -12,6 +12,7 @@ namespace RTS
         [SerializeField] private Canvas hostCanvas;
         [SerializeField] private Transform clientListTransform;
         [SerializeField] private GameObject clientPrefab;
+        [SerializeField] private StartButton startButton;
 
         private List<ulong> playerList = new List<ulong>();
 
@@ -19,9 +20,26 @@ namespace RTS
 
         private void OnEnable()
         {
+            startButton.StartButtonPressed += StartButtonPress;
             NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
         }
 
+        private void StartButtonPress()
+        {
+            foreach(var uid in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                var component = NetworkManager.Singleton.ConnectedClients[uid].PlayerObject.GetComponent<LobbyPlayer>();
+                component.GameStarted();
+            }
+
+            //if (NetworkManager.Singleton.CurrentSessionOwner == NetworkManager.Singleton.LocalClientId)
+                //StartGame();
+        }
+
+        private void StartGame()
+        {
+            Debug.Log("Game started!");
+        }
 
         private void OnDisable()
         {

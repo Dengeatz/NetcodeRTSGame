@@ -2,6 +2,7 @@ using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RTS
 {
@@ -21,6 +22,17 @@ namespace RTS
             ChangeNameRpc();
         }
 
+        public void GameStarted()
+        {
+            if(IsServer)
+                GameStartedRpc();
+        }
+
+        [Rpc(SendTo.Owner)]
+        private void GameStartedRpc()
+        {
+            SceneManager.LoadScene("DefaultMap");
+        }
 
         [Rpc(SendTo.Server)] 
         public void ChangeNameRpc()
