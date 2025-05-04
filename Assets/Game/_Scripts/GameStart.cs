@@ -1,4 +1,5 @@
 using System.Collections;
+using RTS.Assets.Game._Scripts.EntryPoints;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,20 +7,20 @@ namespace RTS
 {
     public class GameStart
     {
-        private static GameStart _instance;
+        public static GameStart Instance;
         private Coroutines _coroutines;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void AutostartGame()
         {
             Application.targetFrameRate = 0;
-            _instance = new GameStart();
-            _instance.RunGame();
+            Instance = new GameStart();
+            Instance.RunGame();
         }
 
         public static GameStart GetInstance()
         {
-            return _instance;
+            return Instance;
         }
 
         private GameStart()
@@ -42,13 +43,13 @@ namespace RTS
             }
         }
 
-        //public void ChangeScene(string name)
-        //{
-        //    if (name == Scenes.MENU)
-        //    {
-        //        _coroutines.StartCoroutine(BootSceneToMenu());
-        //    }
-        //}
+        public void ChangeScene(string name)
+        {
+            if (name == Scenes.DEFAULT_MAP)
+            {
+                _coroutines.StartCoroutine(MenuSceneToDefaultMap());
+            }
+        }
 
         private IEnumerator BootSceneToMenu()
         {
@@ -57,6 +58,14 @@ namespace RTS
             yield return new WaitForEndOfFrame();
             yield return SceneManager.LoadSceneAsync(Scenes.MENU);
             var sceneEntryPoint = Object.FindFirstObjectByType<MenuEntryPoint>();
+            sceneEntryPoint.Run();
+        }
+
+        private IEnumerator MenuSceneToDefaultMap()
+        {
+            yield return new WaitForEndOfFrame();
+            yield return SceneManager.LoadSceneAsync(Scenes.DEFAULT_MAP);
+            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
             sceneEntryPoint.Run();
         }
     }

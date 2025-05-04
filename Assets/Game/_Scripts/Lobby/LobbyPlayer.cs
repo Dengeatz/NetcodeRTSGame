@@ -31,7 +31,7 @@ namespace RTS
         [Rpc(SendTo.Owner)]
         private void GameStartedRpc()
         {
-            SceneManager.LoadScene("DefaultMap");
+            GameStart.Instance.ChangeScene(Scenes.DEFAULT_MAP);
         }
 
         [Rpc(SendTo.Server)] 
