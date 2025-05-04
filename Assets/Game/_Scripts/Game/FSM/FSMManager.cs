@@ -27,7 +27,7 @@ namespace RTS.Assets.Game._Scripts.Game.FSM
         public IEnumerator SetState(Type type)
         {
             _isTranslate = true;
-            yield return _currentState.Exit();
+            yield return _currentState?.Exit();
             _currentState = _states[type];
             yield return _currentState.Enter();
             _isTranslate = false;

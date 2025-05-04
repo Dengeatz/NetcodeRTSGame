@@ -7,12 +7,12 @@ namespace RTS.Assets.Game._Scripts.Game.FSM.States
     {
         public override IEnumerator Enter()
         {
-            throw new NotImplementedException();
+            yield return null;
         }
 
         public override IEnumerator Exit()
         {
-            throw new NotImplementedException();
+            yield return null;
         }
     }
 }
