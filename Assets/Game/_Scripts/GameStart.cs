@@ -1,9 +1,10 @@
 using System.Collections;
 using RTS.Assets.Game._Scripts.EntryPoints;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RTS
+namespace RTS.Core.Game
 {
     public class GameStart
     {
@@ -53,6 +54,7 @@ namespace RTS
 
         private IEnumerator BootSceneToMenu()
         {
+            Debug.Log("3");
             yield return new WaitForEndOfFrame();
             yield return SceneManager.LoadSceneAsync(Scenes.BOOT);
             yield return new WaitForEndOfFrame();
@@ -64,9 +66,7 @@ namespace RTS
         private IEnumerator MenuSceneToDefaultMap()
         {
             yield return new WaitForEndOfFrame();
-            yield return SceneManager.LoadSceneAsync(Scenes.DEFAULT_MAP);
-            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
-            sceneEntryPoint.Run();
+            NetworkManager.Singleton.SceneManager.LoadScene(Scenes.DEFAULT_MAP, LoadSceneMode.Single);
         }
     }
 }

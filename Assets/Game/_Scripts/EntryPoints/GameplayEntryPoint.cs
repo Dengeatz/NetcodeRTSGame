@@ -9,10 +9,9 @@ namespace RTS.Assets.Game._Scripts.EntryPoints
     {
         [SerializeField] private FSMManager _fsmManager;
         
-        public void Run()
+        public void Awake()
         {
             ServiceLocator.Register<FSMManager>(_fsmManager);
-            _fsmManager.StartCoroutine(_fsmManager.SetState(typeof(BeginState)));
         }
     }
 }

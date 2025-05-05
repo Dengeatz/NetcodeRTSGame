@@ -5,14 +5,12 @@ namespace RTS.Assets.Game._Scripts.Game.FSM.States
 {
     public class EndState : State
     {
-        public override IEnumerator Enter()
+        public override void Enter()
         {
-            yield return null;
         }
 
-        public override IEnumerator Exit()
+        public override void Exit()
         {
-            yield return null;
         }
     }
 }

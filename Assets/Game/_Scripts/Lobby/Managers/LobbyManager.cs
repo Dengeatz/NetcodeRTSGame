@@ -1,14 +1,13 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
-using Zenject;
 
 namespace RTS.Lobby.Manager
 {
     public class LobbyManager : MonoBehaviour
     {
-        [Inject] private HostManager hostManager;
-        [Inject] private ClientManager clientManager;
+        [SerializeField] private HostManager hostManager;
+        [SerializeField] private ClientManager clientManager;
 
         [SerializeField] private Canvas lobbyCanvas;
 

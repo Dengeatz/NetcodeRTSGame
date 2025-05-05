@@ -1,36 +1,49 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using RTS.Assets.Game._Scripts.Game.FSM.States;
+using RTS.Assets.Game._Scripts.Game.FSM.States.Enums;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace RTS.Assets.Game._Scripts.Game.FSM
 {
-    public class FSMManager : MonoBehaviour
+    public class FSMManager : NetworkBehaviour
     {
-        private Dictionary<Type, State> _states;
+        private Dictionary<StatesEnum, State> _states;
         private State _currentState;
-        private bool _isTranslate;
-
-        public bool IsTranslate { get { return _isTranslate; } }
+        private NetworkVariable<StatesEnum> _toSet = new NetworkVariable<StatesEnum>();
 
         public void Awake()
         {
-            _states = new Dictionary<Type, State>()
+            _states = new Dictionary<StatesEnum, State>()
             {
-                [typeof(BeginState)] = new BeginState(),
-                [typeof(GameplayState)] = new GameplayState(),
-                [typeof(EndState)] = new EndState()
+                [StatesEnum.Begin] = new BeginState(),
+                [StatesEnum.Gameplay] = new GameplayState(),
+                [StatesEnum.End] = new EndState()
             };
         }
 
-        public IEnumerator SetState(Type type)
+        public override void OnNetworkSpawn()
         {
-            _isTranslate = true;
-            yield return _currentState?.Exit();
-            _currentState = _states[type];
-            yield return _currentState.Enter();
-            _isTranslate = false;
+            if(IsOwner)
+                SetState(StatesEnum.Begin);
+        }
+
+        public void SetState(StatesEnum type)
+        {
+            if (NetworkManager.Singleton.IsHost)
+            {
+                _toSet.Value = type;
+                SetStateRpc();
+            }
+        }
+
+        [Rpc(SendTo.Everyone)]
+        public void SetStateRpc()
+        {
+            _currentState?.Exit();
+            _currentState = _states[_toSet.Value];
+            _currentState.Enter();
         }
 
         public Type GetCurrentState()

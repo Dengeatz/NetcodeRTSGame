@@ -4042,26 +4042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 1483550056}
-  _installerPrefabs: []
-  _autoRun: 1
-  OnPreInstall:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPostInstall:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPreResolve:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPostResolve:
-    m_PersistentCalls:
-      m_Calls: []
-  _parentNewObjectsUnderSceneContext: 0
-  _contractNames: []
-  _parentContractNames: []
 --- !u!4 &1483550055
 Transform:
   m_ObjectHideFlags: 0
@@ -4089,8 +4069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e669afccf6beaa941bdd8c8f1414bfcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hostManager: {fileID: 1495079404}
-  clientManager: {fileID: 123356016}
 --- !u!1 &1495079402
 GameObject:
   m_ObjectHideFlags: 0
@@ -5032,6 +5010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6864d5aad75e77a48b15eedf860a23ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hostManager: {fileID: 1495079404}
+  clientManager: {fileID: 123356016}
   lobbyCanvas: {fileID: 2023372226}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

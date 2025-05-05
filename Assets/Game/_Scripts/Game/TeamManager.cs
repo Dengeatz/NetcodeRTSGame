@@ -11,7 +11,5 @@ namespace RTS.Assets.Game._Scripts.Game
         {
 
         }
-
-
     }
 }
