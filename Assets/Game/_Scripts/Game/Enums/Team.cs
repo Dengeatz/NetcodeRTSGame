@@ -2,7 +2,7 @@
 {
     public enum Team
     {
-        Russland,
-        Yasher
+        Red,
+        Blue
     }
 }

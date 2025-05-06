@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using RTS.Core.Game;
 using TMPro;
 using Unity.Collections;
@@ -29,10 +30,14 @@ namespace RTS
                 GameStartedRpc();
         }
 
-        [Rpc(SendTo.Owner)]
+        [Rpc(SendTo.Server)]
         private void GameStartedRpc()
         {
-            GameStart.Instance.ChangeScene(Scenes.DEFAULT_MAP);
+            //foreach(var uid in NetworkManager.Singleton.ConnectedClientsIds)
+            //{
+            //    NetworkManager.Singleton.ConnectedClients[uid].PlayerObject.Despawn(true);
+            //}
+            NetworkManager.Singleton.SceneManager.LoadScene(Scenes.DEFAULT_MAP, LoadSceneMode.Single);
         }
 
         [Rpc(SendTo.Server)] 

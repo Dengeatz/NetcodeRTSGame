@@ -30,7 +30,6 @@ namespace RTS
             {
                 var component = NetworkManager.Singleton.ConnectedClients[uid].PlayerObject.GetComponent<LobbyPlayer>();
                 component.GameStarted();
-                component.NetworkObject.Despawn(false);
             }
         }
 

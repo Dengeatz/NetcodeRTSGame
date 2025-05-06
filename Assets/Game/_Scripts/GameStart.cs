@@ -66,7 +66,7 @@ namespace RTS.Core.Game
         private IEnumerator MenuSceneToDefaultMap()
         {
             yield return new WaitForEndOfFrame();
-            NetworkManager.Singleton.SceneManager.LoadScene(Scenes.DEFAULT_MAP, LoadSceneMode.Single);
+            //NetworkManager.Singleton.SceneManager.SetClientSynchronizationMode(LoadSceneMode.Single); // <-------- Prevents initial issue
         }
     }
 }
