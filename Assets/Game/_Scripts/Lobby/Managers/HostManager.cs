@@ -33,11 +33,6 @@ namespace RTS
             }
         }
 
-        private void StartGame()
-        {
-            Debug.Log("Game started!");
-        }
-
         private void OnDisable()
         {
             NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
