@@ -7,11 +7,7 @@ namespace RTS.Assets.Game._Scripts.Game.PlayerScripts
     {
         public Vector2 GetCameraPositionTransformation()
         {
-            if (IsMiddleMBHolds())
-            {
-                return GetMouseAxis();
-            }
-            return Vector2.zero;
+            return GetKeyboardAxis();
         }
 
         public Vector2 GetCameraRotationTransformation()
@@ -36,6 +32,11 @@ namespace RTS.Assets.Game._Scripts.Game.PlayerScripts
         private Vector2 GetMouseAxis()
         {
             return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        }
+
+        private Vector2 GetKeyboardAxis()
+        {
+            return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
     }
 }

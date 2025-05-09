@@ -29,7 +29,7 @@ namespace RTS.Assets.Game._Scripts.Game.PlayerScripts
 
         private Vector3 CalculatePosition(Vector2 inputAxis)
         {
-            return _parent.transform.position + (_parent.transform.forward * inputAxis.x) + (_parent.transform.right * inputAxis.y);
+            return _parent.transform.position + ((_mainCamera.transform.forward - new Vector3(0, _mainCamera.transform.forward.y - _parent.transform.forward.y, 0)) * inputAxis.y) + ((_mainCamera.transform.right - new Vector3(0, _mainCamera.transform.right.y - _parent.transform.right.y, 0)) * inputAxis.x);
         }
 
         private Vector2 CalculateRotation(Vector2 inputAxis)
@@ -44,8 +44,9 @@ namespace RTS.Assets.Game._Scripts.Game.PlayerScripts
 
         private void CameraRotate(Vector2 rotation)
         {
-            _mainCamera.transform.Rotate(Vector3.up, -rotation.x, Space.World);
-            _mainCamera.transform.Rotate(Vector3.right, rotation.y, Space.World);
+            _currentRotationAxis.x += rotation.x;
+            _currentRotationAxis.y += rotation.y;
+            _mainCamera.transform.rotation = Quaternion.Euler(_currentRotationAxis.y, -_currentRotationAxis.x, 0);
         }
     }
 }

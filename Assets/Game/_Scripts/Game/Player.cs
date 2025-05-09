@@ -23,7 +23,8 @@ namespace RTS.Assets.Game._Scripts.Game
 
         private void Update()
         {
-            _cameraHandler.Update();
+            if(IsOwner)
+                _cameraHandler.Update();
         }
     }
 }
