@@ -54,7 +54,6 @@ namespace RTS.Core.Game
 
         private IEnumerator BootSceneToMenu()
         {
-            Debug.Log("3");
             yield return new WaitForEndOfFrame();
             yield return SceneManager.LoadSceneAsync(Scenes.BOOT);
             yield return new WaitForEndOfFrame();

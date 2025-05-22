@@ -28,8 +28,8 @@ namespace RTS.Assets.Game._Scripts.EntryPoints
         {
             Debug.Log(par.Receive.SenderClientId);
             ulong senderClientId = par.Receive.SenderClientId;
-            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_playerPrefab, par.Receive.SenderClientId, false, true);
-            _playerPrefab.ChangeOwnership(senderClientId);
+            var playerObject = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_playerPrefab, par.Receive.SenderClientId, false, true);
+            playerObject.ChangeOwnership(senderClientId);
             ServiceLocator.GetService<TeamManager>().AddPlayer(_playerPrefab.GetComponent<Player>());
         }
     }

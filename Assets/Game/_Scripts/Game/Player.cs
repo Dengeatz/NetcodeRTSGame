@@ -8,17 +8,22 @@ namespace RTS.Assets.Game._Scripts.Game
 {
     public class Player : NetworkBehaviour
     {
-        [SerializeField] private Camera _camera;
+        [SerializeField] private GameObject _cameraObject;
 
         public Team PlayerTeam;
         private PlayerCamera _cameraHandler;
         private IInput _inputHandler;
+        private Camera _camera;
 
         public override void OnNetworkSpawn()
         {
-            base.OnNetworkSpawn();
-            _inputHandler = new PlayerInput();
-            _cameraHandler = new PlayerCamera(_inputHandler, this.transform.gameObject, _camera, 100f, 100f);
+            if (IsOwner)
+            {
+                _camera = _cameraObject.AddComponent<Camera>();
+                base.OnNetworkSpawn();
+                _inputHandler = new PlayerInput();
+                _cameraHandler = new PlayerCamera(_inputHandler, this.transform.gameObject, _camera, 100f, 100f);
+            }
         }
 
         private void Update()
