@@ -26,7 +26,6 @@ namespace RTS.Assets.Game._Scripts.EntryPoints
         [Rpc(SendTo.Server)]
         public void SpawnPlayersRpc(RpcParams par = default)
         {
-            Debug.Log(par.Receive.SenderClientId);
             ulong senderClientId = par.Receive.SenderClientId;
             var playerObject = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_playerPrefab, par.Receive.SenderClientId, false, true);
             playerObject.ChangeOwnership(senderClientId);
